@@ -1,0 +1,71 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Category {
+  billing
+  technical
+  complaint
+  feature_request
+  out_of_scope
+  unclear
+}
+
+enum Priority {
+  P0
+  P1
+  P2
+  P3
+}
+
+model Message {
+  id             String         @id @default(uuid()) @db.Uuid
+  content        String         @db.Text
+  received_at    DateTime
+  created_at     DateTime       @default(now())
+  reviewed       Boolean        @default(false)
+  triage_results TriageResult[]
+  eval_label     EvalLabel?
+
+  @@index([created_at])
+}
+
+model TriageResult {
+  id                 String   @id @default(uuid()) @db.Uuid
+  message_id         String   @db.Uuid
+  category           Category
+  priority           Priority
+  summary            String   @db.VarChar(120)
+  suggested_action   String   @db.VarChar(200)
+  needs_human        Boolean
+  confidence         Float
+  processing_time_ms Int
+  input_tokens       Int
+  output_tokens      Int
+  created_at         DateTime @default(now())
+
+  message            Message  @relation(fields: [message_id], references: [id], onDelete: Cascade)
+
+  @@index([message_id])
+  @@index([category])
+  @@index([priority])
+  @@index([needs_human])
+  @@index([created_at])
+}
+
+model EvalLabel {
+  id                   String   @id @default(uuid()) @db.Uuid
+  message_id           String   @unique @db.Uuid
+  expected_category    Category
+  expected_priority    Priority
+  expected_needs_human Boolean
+  labeler              String
+  labeled_at           DateTime
+
+  message              Message  @relation(fields: [message_id], references: [id], onDelete: Cascade)
+}

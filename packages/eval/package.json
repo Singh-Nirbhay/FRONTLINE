@@ -1,0 +1,25 @@
+{
+  "name": "@frontline/eval",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@frontline/core": "workspace:*",
+    "@prisma/client": "^5.15.0",
+    "cli-table3": "^0.6.5",
+    "chalk": "^5.3.0",
+    "p-limit": "^5.0.0",
+    "@anthropic-ai/sdk": "^0.22.0",
+    "api": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "tsx": "^4.15.0",
+    "typescript": "^5.4.5"
+  }
+}

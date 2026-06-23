@@ -1,0 +1,26 @@
+{
+  "name": "frontline-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontline AI Triage System Monorepo",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "eval": "pnpm --filter @frontline/eval start",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "docker:up": "docker compose up -d"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.15.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "prisma": "^5.15.0",
+    "turbo": "^2.0.4",
+    "typescript": "^5.4.5",
+    "vitest": "1.6.1",
+    "wait-on": "^9.0.10"
+  },
+  "packageManager": "pnpm@9.1.4"
+}

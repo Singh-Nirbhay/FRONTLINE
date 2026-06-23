@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "REDIS_URL",
+    "GROQ_API_KEY",
+    "GROQ_MODEL",
+    "CONFIDENCE_THRESHOLD",
+    "MAX_RETRIES",
+    "CONCURRENCY",
+    "PORT",
+    "LOG_LEVEL",
+    "NODE_ENV"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    }
+  }
+}
